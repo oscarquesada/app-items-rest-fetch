@@ -1,90 +1,97 @@
-# 🧩 AppItems
+# 🧾 App Items - CRUD con PHP, Eloquent y Fetch
 
-Aplicación web CRUD para gestión de items desarrollada en **PHP sin framework**, utilizando **Eloquent ORM** para la persistencia de datos y **Bootstrap** para la interfaz de usuario.
-
-Incluye un **dashboard dinámico**, validaciones del lado del servidor y soporte para **modo claro/oscuro**.
+Aplicación web CRUD desarrollada en PHP que permite gestionar items (crear, listar, editar y eliminar) utilizando una arquitectura moderna basada en API REST y consumo con Fetch desde el frontend.
 
 ---
 
-## 🚀 Características
+## 🚀 Tecnologías utilizadas
 
-- 📦 CRUD completo de items (Crear, Leer, Actualizar, Eliminar)
-- 📊 Dashboard con métricas en tiempo real
-- 🔍 Búsqueda dinámica en tabla
-- 🎨 Interfaz moderna con Bootstrap
-- 🌙 Modo oscuro / claro (persistente)
-- ✅ Validaciones de formulario en backend
-- ⚡ Arquitectura sin framework (router manual + vistas)
-- 🗂 Uso de Eloquent ORM (Active Record)
-
----
-
-## 🛠️ Tecnologías utilizadas
-
-- PHP 8+
+- PHP
+- Eloquent ORM
 - MySQL
-- Eloquent ORM (Illuminate Database)
+- JavaScript (Fetch API)
 - Bootstrap 5
-- JavaScript (Vanilla)
-- Composer
+- HTML5 + CSS3
 
 ---
 
-## 📁 Estructura del proyecto
+## 🧠 Arquitectura
+
+La aplicación está separada en capas:
 
 
-```txt
-AppItems/
-│
-├── public/
-│   ├── index.php          # Router principal / front controller
-│   └── .htaccess          # Configuración de Apache
-│
-├── src/
-│   ├── config/
-│   │   └── database.php   # Conexión a MySQL con Eloquent
-│   │
-│   ├── models/
-│   │   └── Item.php       # Modelo Item
-│   │
-│   ├── routes/
-│   │   ├── home.php
-│   │   ├── items.php
-│   │   ├── items-edit.php
-│   │   ├── items-update.php
-│   │   ├── items-delete.php
-│   │
-│   ├── validators/
-│   │   └── itemvalidator.php
-│   │
-│   └── views/
-│       ├── layout.php
-│       ├── home.php
-│       ├── items.php
-│       ├── create-item.php
-│       └── edit-item.php
-│
-├── vendor/
-├── composer.json
-├── composer.lock
-└── README.md
-```
+Frontend (JS + HTML)
+↓
+Fetch API
+↓
+API REST (PHP)
+↓
+Modelo (Eloquent ORM)
+↓
+Base de datos (MySQL)
 
-## 🌙 Modo oscuro
-
-La aplicación incluye un sistema de cambio de tema:
-
-- Persistente con `localStorage`
-- Afecta toda la UI
-- Adaptación completa de tablas, cards y formularios
 
 ---
 
-## 💡 Mejoras futuras
+## ⚙️ Funcionalidades
 
-- Paginación
-- API REST completa
-- Autenticación de usuarios
-- Filtros avanzados
-- Gráficos (Chart.js)
-- Deploy online
+- ✔ Listado de items  
+- ✔ Búsqueda por nombre  
+- ✔ Crear nuevos items  
+- ✔ Editar items existentes  
+- ✔ Eliminar items  
+- ✔ Validación de datos  
+- ✔ Manejo de errores HTTP  
+- ✔ Tema dinámico (modo claro / oscuro)  
+
+---
+
+## 🔗 Endpoints principales
+
+
+GET /api/items → obtener todos los items
+GET /api/items?q=texto → buscar items
+GET /api/items?id=1 → obtener un item
+POST /api/items → crear item
+PUT /api/items?id=1 → actualizar item
+DELETE /api/items?id=1 → eliminar item
+
+
+---
+
+## 💻 Frontend
+
+El frontend utiliza JavaScript con Fetch para comunicarse con la API sin recargar la página.
+
+Ejemplo:
+
+```js
+fetch('/api/items?q=mouse')
+🎨 UI
+Interfaz construida con Bootstrap 5
+Estilos personalizados con variables CSS
+Soporte para modo claro y modo oscuro
+📁 Estructura del proyecto
+public/
+│
+├── index.php
+├── css/
+│   └── styles.css
+├── js/
+│   ├── items.js
+│   ├── create-item.js
+│   ├── edit-item.js
+│   └── theme.js
+
+src/
+├── models/
+├── routes/
+└── views/
+
+📌 Conceptos aplicados
+API REST
+Fetch API
+Separación de responsabilidades
+Arquitectura tipo MVC (simplificada)
+Manejo de estados y validaciones
+Uso de ORM (Eloquent)

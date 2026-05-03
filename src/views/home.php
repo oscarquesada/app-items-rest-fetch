@@ -1,49 +1,14 @@
 <?php
 $title = 'Dashboard';
 
+$totalItems = $totalItems ?? 0;
+$itemsActivos = $itemsActivos ?? 0;
+$valorTotal = $valorTotal ?? 0;
+$stockTotal = $stockTotal ?? 0;
+$ultimosItems = $ultimosItems ?? collect();
+
 ob_start();
 ?>
-
-<style>
-    .stat-card {
-        border: 0;
-        border-radius: 14px;
-        box-shadow: 0 3px 12px rgba(0,0,0,.08);
-        min-height: 115px;
-    }
-
-    .icon-box {
-        width: 42px;
-        height: 42px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 22px;
-        flex-shrink: 0;
-    }
-
-    .quick-card {
-        border: 0;
-        border-radius: 14px;
-        box-shadow: 0 3px 12px rgba(0,0,0,.07);
-        transition: .2s;
-    }
-
-    .quick-card:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 18px rgba(0,0,0,.12);
-    }
-
-    .bg-soft-blue { background: #eaf3ff; color: #0d6efd; }
-    .bg-soft-green { background: #e9f8ef; color: #198754; }
-    .bg-soft-orange { background: #fff3df; color: #f59f00; }
-    .bg-soft-purple { background: #f3e9ff; color: #8e44ff; }
-
-    .card-soft-blue { background: #f4f9ff; border: 1px solid #d9ecff; }
-    .card-soft-green { background: #f2fbf6; border: 1px solid #d8f3e3; }
-    .card-soft-purple { background: #faf5ff; border: 1px solid #eadcff; }
-</style>
 
 <h1 class="mb-1 fw-bold">Dashboard</h1>
 <p class="text-muted mb-4">Resumen general de tu aplicación</p>
@@ -173,7 +138,7 @@ ob_start();
 
     <div class="col-md-8">
         <div class="card shadow-sm border-0 rounded-3">
-            <div class="card-header bg-white fw-bold">
+            <div class="card-header fw-bold">
                 Actividad reciente
             </div>
 
@@ -218,7 +183,7 @@ ob_start();
             <div class="card-body">
                 <h6 class="fw-bold">Información</h6>
                 <p class="text-muted mb-0 small">
-                    Aplicación desarrollada con PHP, MySQL, Eloquent ORM y Bootstrap.
+                    Aplicación desarrollada con PHP, MySQL, Eloquent ORM, Bootstrap y JavaScript con Fetch API para consumir una API REST.
                 </p>
             </div>
         </div>

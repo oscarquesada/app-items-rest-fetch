@@ -2,6 +2,7 @@
 // src/routes/api-items.php
 
 require_once __DIR__ . '/../models/Item.php';
+require_once __DIR__ . '/../validators/itemvalidator.php';
 
 use App\Models\Item;
 
@@ -30,31 +31,17 @@ function getJsonBody(): array
     return $data;
 }
 
-function validateApiItem(array $data): array
+function flattenErrors(array $errors): array
 {
-    $errors = [];
+    $flatErrors = [];
 
-    $name = trim($data['name'] ?? '');
-    $qty = $data['qty'] ?? null;
-    $price = $data['price'] ?? null;
-
-    if ($name === '') {
-        $errors[] = 'El nombre es obligatorio';
+    foreach ($errors as $fieldErrors) {
+        foreach ($fieldErrors as $error) {
+            $flatErrors[] = $error;
+        }
     }
 
-    if (!is_numeric($qty) || (int)$qty < 0 || (int)$qty > 9999) {
-        $errors[] = 'La cantidad debe estar entre 0 y 9999';
-    }
-
-    if (is_string($price)) {
-        $price = str_replace(',', '.', $price);
-    }
-
-    if (!is_numeric($price) || (float)$price < 0) {
-        $errors[] = 'El precio debe ser válido';
-    }
-
-    return $errors;
+    return $flatErrors;
 }
 
 // GET /api/items
@@ -109,12 +96,12 @@ if ($method === 'GET') {
 if ($method === 'POST') {
     try {
         $data = getJsonBody();
-        $errors = validateApiItem($data);
+        $errors = validateItem($data);
 
         if (!empty($errors)) {
             jsonResponse([
                 'ok' => false,
-                'errors' => $errors
+                'errors' => flattenErrors($errors)
             ], 400);
         }
 
@@ -164,12 +151,12 @@ if ($method === 'PUT') {
         }
 
         $data = getJsonBody();
-        $errors = validateApiItem($data);
+        $errors = validateItem($data);
 
         if (!empty($errors)) {
             jsonResponse([
                 'ok' => false,
-                'errors' => $errors
+                'errors' => flattenErrors($errors)
             ], 400);
         }
 
