@@ -62,10 +62,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const data = {
             name: nameInput.value.trim(),
-            qty: qtyInput.value,
-            price: priceInput.value
+            qty: qtyInput.value.trim(),
+            price: priceInput.value.trim()
         };
 
+        // ✅ 1) Validación FRONTEND: antes del PUT
+        const qtyNumber = Number(data.qty);
+        const priceNumber = Number(data.price);
+
+        if (data.name === '') {
+            showAlert('El nombre es obligatorio.');
+            return;
+        }
+
+        if (data.qty === '' || isNaN(qtyNumber) || qtyNumber < 0 || qtyNumber > 9999) {
+            showAlert('La cantidad debe ser un número entre 0 y 9999.');
+            return;
+        }
+
+        if (data.price === '' || isNaN(priceNumber) || priceNumber < 0) {
+            showAlert('El precio debe ser un número válido mayor o igual a 0.');
+            return;
+        }
+
+        // ✅ 2) Si pasó la validación frontend, manda al backend
         try {
             const res = await fetch(`${API_URL}?id=${id}`, {
                 method: 'PUT',
@@ -77,6 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const result = await res.json();
 
+            // ✅ 3) Si el backend valida mal y devuelve 400, se muestra acá
             if (!res.ok || !result.ok) {
                 const errors = result.errors
                     ? result.errors.join('<br>')

@@ -52,8 +52,15 @@ if ($method === 'GET') {
         $id = $_GET['id'] ?? null;
         $q = trim($_GET['q'] ?? '');
 
-        if ($id) {
-            $item = Item::find($id);
+        if ($id !== null && $id !== '') {
+            if (!ctype_digit((string) $id)) {
+                jsonResponse([
+                    'ok' => false,
+                    'error' => 'ID inválido'
+                ], 400);
+            }
+
+            $item = Item::find((int) $id);
 
             if (!$item) {
                 jsonResponse([
@@ -96,6 +103,7 @@ if ($method === 'GET') {
 if ($method === 'POST') {
     try {
         $data = getJsonBody();
+
         $errors = validateItem($data);
 
         if (!empty($errors)) {
@@ -134,14 +142,21 @@ if ($method === 'PUT') {
     try {
         $id = $_GET['id'] ?? null;
 
-        if (!$id) {
+        if ($id === null || $id === '') {
             jsonResponse([
                 'ok' => false,
                 'error' => 'ID es requerido'
             ], 400);
         }
 
-        $item = Item::find($id);
+        if (!ctype_digit((string) $id)) {
+            jsonResponse([
+                'ok' => false,
+                'error' => 'ID inválido'
+            ], 400);
+        }
+
+        $item = Item::find((int) $id);
 
         if (!$item) {
             jsonResponse([
@@ -151,6 +166,7 @@ if ($method === 'PUT') {
         }
 
         $data = getJsonBody();
+
         $errors = validateItem($data);
 
         if (!empty($errors)) {
@@ -189,14 +205,21 @@ if ($method === 'DELETE') {
     try {
         $id = $_GET['id'] ?? null;
 
-        if (!$id) {
+        if ($id === null || $id === '') {
             jsonResponse([
                 'ok' => false,
                 'error' => 'ID es requerido'
             ], 400);
         }
 
-        $item = Item::find($id);
+        if (!ctype_digit((string) $id)) {
+            jsonResponse([
+                'ok' => false,
+                'error' => 'ID inválido'
+            ], 400);
+        }
+
+        $item = Item::find((int) $id);
 
         if (!$item) {
             jsonResponse([

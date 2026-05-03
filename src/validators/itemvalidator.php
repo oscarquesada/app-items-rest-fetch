@@ -29,7 +29,7 @@ function validateItem(array $data): array {
     if ($qty === '') {
         $errors['qty'][] = 'La cantidad es obligatoria.';
     } elseif (!ctype_digit($qty)) {
-        $errors['qty'][] = 'Debe ser un número entero positivo.';
+        $errors['qty'][] = 'Debe ser un número entero entre 0 y 9999.';
     } elseif ((int)$qty < 0 || (int)$qty > 9999) {
         $errors['qty'][] = 'Debe estar entre 0 y 9999.';
     }
